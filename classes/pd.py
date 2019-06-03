@@ -118,4 +118,3 @@ def to_pd(common_profiles):
         new_profile.update({"card": pd.set_card_dict(profile.card)})
         new_profiles.append(new_profile)
     return new_profiles
-
