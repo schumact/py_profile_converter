@@ -5,7 +5,7 @@ import argparse
 # Local Module Imports
 from classes.cyber import from_cyber, to_cyber
 from classes.pd import from_pd, to_pd
-from classes.phatom import from_phantom, to_phantom
+from classes.phantom import from_phantom, to_phantom
 
 
 def arg_parser():
