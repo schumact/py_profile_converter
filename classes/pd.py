@@ -9,7 +9,6 @@ class ProjectDestroyer:
                               "cashOnDelivery": False, "dotTrick": False, "email": profile.email,
                               "match": profile.same_as_ship, "limit": profile.limit,
                               "id": self.id})
-        # TODO find how what to do with id from json and how it is generated (or random)
 
     @staticmethod
     def set_ship_dict(CommonFormat):
