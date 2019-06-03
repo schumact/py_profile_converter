@@ -14,7 +14,7 @@ card_types = {
         [34],
         [37]
     ],
-    "mastercard": [
+    "master": [
         [50, 55]
     ]
 }

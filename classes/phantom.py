@@ -1,8 +1,12 @@
+# Local Module Imports
 from .credit_card import get_card_type
+from .country import abbreviate_country, abbreviate_state
 
 
 class Phantom:
     def __init__(self, profile):
+        profile.shipping.country = abbreviate_country(profile.shipping.country)
+
         self.defaults = dict({"Name": profile.title, "Phone": profile.phone,
                               "Same": profile.same_as_ship, "Email": profile.email,
                               "Country": profile.shipping.country})
@@ -17,7 +21,7 @@ class Phantom:
             "Apt": shipping.address_two,
             "Zip": shipping.zipcode,
             "City": shipping.city,
-            "State": shipping.state,
+            "State": abbreviate_state(shipping.state),
         }
         return ship_dict
 
@@ -31,7 +35,7 @@ class Phantom:
             "Apt": billing.address_two,
             "Zip": billing.zipcode,
             "City": billing.city,
-            "State": billing.state,
+            "State": abbreviate_state(billing.state),
         }
         return billing_dict
 
@@ -88,19 +92,20 @@ def set_common_card(profile, Card):
                 card_type=profile["CardType"])
 
 
-def from_phantom(json_obj, CommonFormat):
+def from_phantom(json_list, CommonFormat):
     profiles = []
-    for key, value in json_obj.items():
+    for json_obj in json_list:
         template = CommonFormat()
-        template.title = value["Name"]
-        template.billing = set_common_billing(value['Billing'], template.billing)
-        template.shipping = set_common_shipping(value["Shipping"], template.shipping,
-                                                country=value["Country"])
-        template.card = set_common_card(value, template.card)
-        template.email = value["Email"]
-        template.phone = value["Phone"]
-        template.same_as_ship = value["Same"]
-        template.limit = None
+        template.title = json_obj["Name"]
+        template.billing = set_common_billing(json_obj['Billing'], template.billing,
+                                              country=json_obj["Country"])
+        template.shipping = set_common_shipping(json_obj["Shipping"], template.shipping,
+                                                country=json_obj["Country"])
+        template.card = set_common_card(json_obj, template.card)
+        template.email = json_obj["Email"]
+        template.phone = json_obj["Phone"]
+        template.same_as_ship = json_obj["Same"]
+        template.limit = True  # oddly enough, no such value in the bot so will set to true
         profiles.append(template)
     return profiles
 
