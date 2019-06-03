@@ -1,3 +1,10 @@
+# Standard Library
+from random import randint
+
+# Local Module Imports
+from .country import full_form_country, full_form_state
+
+
 class Cyber:
     def __init__(self, profile):
         self.email = profile.email
@@ -15,8 +22,8 @@ class Cyber:
             "addr2": shipping.address_two,
             "zip": shipping.zipcode,
             "city": shipping.city,
-            "country": shipping.country,
-            "state": shipping.state,
+            "country": full_form_country(shipping.country),
+            "state": full_form_state(shipping.state),
             "same_as_del": self.same_as_ship
         }
         return ship_dict
@@ -30,8 +37,8 @@ class Cyber:
             "addr2": billing.address_two,
             "zip": billing.zipcode,
             "city": billing.city,
-            "country": billing.country,
-            "state": billing.state,
+            "country": full_form_country(billing.country),
+            "state": full_form_state(billing.state),
             "same_as_del": self.same_as_ship
         }
         return billing_dict
@@ -102,12 +109,18 @@ def from_cyber(json_obj, CommonFormat):
 
 
 def to_cyber(common_profiles):
-    new_profiles = []
+    new_profiles = {}
     for profile in common_profiles:
         cyber = Cyber(profile)
         new_profile = dict(cyber.defaults)
         new_profile.update({"delivery": cyber.set_ship_dict(profile)})
         new_profile.update({"billing": cyber.set_billing_dict(profile)})
         new_profile.update({"payment": cyber.set_card_dict(profile.card)})
-        new_profiles.append(new_profile)
+        try:
+            new_profiles[profile.title] = new_profile
+        except KeyError as e:
+            rand_num = randint(1, 100)
+            print(f"Cannot use same name for cyber profile. Duplicate profile"
+                  f" {profile.title} is now {profile.title}{rand_num}")
+            new_profiles[profile.title + str(rand_num)] = new_profile
     return new_profiles

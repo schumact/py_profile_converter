@@ -1,5 +1,9 @@
+# Standard Library Imports
 import random
 import string
+
+# Local Module Imports
+from .country import full_form_country, full_form_state
 
 
 class ProjectDestroyer:
@@ -17,11 +21,11 @@ class ProjectDestroyer:
             "address1": shipping.address_one,
             "address2": shipping.address_two,
             "city": shipping.city,
-            "country": shipping.country,
+            "country": full_form_country(shipping.country),
             "firstName": shipping.first,
             "lastName": shipping.last,
             "phone": CommonFormat.phone,
-            "state": shipping.state,
+            "state": full_form_state(shipping.state),
             "zipcode": shipping.zipcode
         }
         return ship_dict
@@ -33,11 +37,11 @@ class ProjectDestroyer:
             "address1": billing.address_one,
             "address2": billing.address_two,
             "city": billing.city,
-            "country": billing.country,
+            "country": full_form_country(billing.country),
             "firstName": billing.first,
             "lastName": billing.last,
             "phone": CommonFormat.phone,
-            "state": billing.state,
+            "state": full_form_state(billing.state),
             "zipcode": billing.zipcode
         }
         return billing_dict
