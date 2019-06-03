@@ -1,6 +1,7 @@
 # Standard Library Imports
 import json
 import argparse
+from sys import exit
 
 # Local Module Imports
 from classes.cyber import from_cyber, to_cyber
@@ -81,11 +82,14 @@ class CommonFormat:
 
 def read_from(file):
     parsed = None
-    with open(file, 'r') as fi:
-        try:
-            parsed = json.load(fi)
-        except json.JSONDecodeError as e:
-            print(e)
+    try:
+        with open(file, 'r') as fi:
+            try:
+                parsed = json.load(fi)
+            except json.JSONDecodeError as e:
+                print(e)
+    except FileNotFoundError as e:
+        exit("Please supply profile json file that already exists.")
     return parsed
 
 
@@ -101,9 +105,14 @@ def pretty_print_json(json_obj):
 
 if __name__ == '__main__':
     args = arg_parser()
-    from_bot = FROM_BOTS[args.former]
-    to_bot = TO_BOTS[args.to]
+    from_bot = None
+    to_bot = None
+    try:
+        from_bot = FROM_BOTS[args.former.lower()]
+        to_bot = TO_BOTS[args.to.lower()]
+    except KeyError as e:
+        exit("Either the -f or -t option was passed an invalid value. "
+             "Current valid options for both fields are cyber, pd, phantom")
     old_profiles = from_bot(read_from(args.file_), CommonFormat)
     new_profiles = to_bot(old_profiles)
     create_profiles_json_file(new_profiles)
-    print('Done')
