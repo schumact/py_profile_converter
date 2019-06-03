@@ -11,7 +11,7 @@ from classes.phantom import from_phantom, to_phantom
 def arg_parser():
     parser = argparse.ArgumentParser(description="EasyConverto Py")
     parser.add_argument('-f', '--former', required=True,
-                        help="Json file containing profiles from old bot")
+                        help="Name of bot where profiles are being converted from")
     parser.add_argument('-t', '--to', required=True,
                         help="Bot which will receive json files for importing")
     parser.add_argument('file_', help="Json file containing profiles for conversion")
