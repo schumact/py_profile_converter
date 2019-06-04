@@ -128,44 +128,56 @@ STATE_DICT = {
 
 
 def abbreviate_state(state):
-    if len(state) > 2:
-        try:
+    try:
+        if len(state) > 2:
             state = STATE_DICT[state]
-            return state
-        except KeyError as e:
+        return state
+    except (TypeError, KeyError) as e:
+        if TypeError:
+            print('State type was not converted to abbreviated form properly.')
+        else:
             print(f"Couldn't find {state} in STATE_DICT")
-    else:
+        print("Skipping state formatting. This will need to manually be fixed")
         return state
 
 
 def full_form_state(state):
-    if len(state) == 2:
-        try:
+    try:
+        if len(state) == 2:
             state = ABBREV_STATE_DICT[state]
-            return state
-        except KeyError as e:
+        return state
+    except (TypeError, KeyError) as e:
+        if TypeError:
+            print('State type was not converted to full form properly.')
+        else:
             print(f"Couldn't find {state} in ABBREV_STATE_DICT")
-    else:
+        print("Skipping state formatting. This will need to manually be fixed")
         return state
 
 
 def abbreviate_country(country):
-    if len(country) > 2:
-        try:
+    try:
+        if len(country) > 2:
             country = COUNTRY_DICT[country]
-            return country
-        except KeyError as e:
+        return country
+    except (KeyError, TypeError) as e:
+        if TypeError:
+            print('Country type was not converted to abbreviated form properly.')
+        else:
             print(f"Couldn't find {country} in COUNTRY_DICT")
-    else:
+        print("Skipping country formatting. This will need to manually be fixed")
         return country
 
 
 def full_form_country(country):
-    if len(country) == 2:
-        try:
+    try:
+        if len(country) == 2:
             country = ABBREV_COUNTRY_DICT[country]
-            return country
-        except KeyError as e:
+        return country
+    except (TypeError, KeyError) as e:
+        if TypeError:
+            print('Country type was not converted to full form properly.')
+        else:
             print(f"Couldn't find {country} in ABBREV_COUNTRY_DICT")
-    else:
+        print("Skipping country formatting. This will need to manually be fixed")
         return country
