@@ -11,7 +11,8 @@ from classes.anb import from_anb, to_anb
 
 
 def arg_parser():
-    parser = argparse.ArgumentParser(description="EasyConverto Py")
+    parser = argparse.ArgumentParser(description="Py Profile Converter. Currently supports "
+                                                 "anb, cyber, phantom and pd")
     parser.add_argument('-f', '--former', required=True,
                         help="Name of bot where profiles are being converted from")
     parser.add_argument('-t', '--to', required=True,
