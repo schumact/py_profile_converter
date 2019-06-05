@@ -93,11 +93,11 @@ def read_from_json(json_file):
     try:
         with open(json_file, 'r') as fi:
             parsed = json.load(fi)
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        if json.JSONDecodeError:
-            exit("File does not contain valid Json. Exiting program")
-        else:
-            exit("Please supply profile json file that already exists.")
+    except FileNotFoundError as e:
+        exit("Please supply profile json file that already exists.")
+    except json.JSONDecodeError as e:
+        exit("File does not contain valid Json. Exiting program")
+
     return parsed
 
 
