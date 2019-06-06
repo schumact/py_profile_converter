@@ -6,7 +6,7 @@ bots over and over again can be time consuming and annoying. With this python pr
 you just need to supply an existing file containing your profiles from one of the supported
 bots and a new profile file will be created for another one of the supported bots. 
 
-##Prerequisites 
+## Prerequisites 
 
 Have python 3 downloaded. This script was tested on version 3.7.2. There
 are no third party modules in use so older python 3 versions should suffice.
