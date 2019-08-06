@@ -9,11 +9,12 @@ from classes.pd import from_pd, to_pd
 from classes.phantom import from_phantom, to_phantom
 from classes.anb import from_anb, to_anb
 from classes.dashe import from_dashe, to_dashe
+from classes.LatchKey import from_latch, to_latch
 
 
 def arg_parser():
     parser = argparse.ArgumentParser(description="Py Profile Converter. Currently supports "
-                                                 "anb, cyber, phantom, dashe and pd")
+                                                 "anb, cyber, phantom, dashe, latch and pd")
     parser.add_argument('-f', '--former', required=True,
                         help="Name of bot where profiles are being converted from")
     parser.add_argument('-t', '--to', required=True,
@@ -29,7 +30,8 @@ FROM_BOTS = {
     "phantom": from_phantom,
     "pd": from_pd,
     "anb": from_anb,
-    "dashe": from_dashe
+    "dashe": from_dashe,
+    "latch": from_latch
 }
 
 TO_BOTS = {
@@ -37,7 +39,8 @@ TO_BOTS = {
     "phantom": to_phantom,
     "pd": to_pd,
     "anb": to_anb,
-    "dashe": to_dashe
+    "dashe": to_dashe,
+    "latch": to_latch
 }
 
 
